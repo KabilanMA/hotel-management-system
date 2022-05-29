@@ -30,12 +30,14 @@ class App extends React.Component {
 
   async componentDidMount() {
     try {
-      let res = await fetch("/isLoggedIn", {
+      let res = await fetch("http://localhost:3001/isLoggedIn", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
+        mode:'cors'
       });
 
       let result = await res.json();
@@ -58,12 +60,13 @@ class App extends React.Component {
 
   async doLogout() {
     try {
-      let res = await fetch("/logout", {
+      let res = await fetch("http://localhost:3001/logout", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
+        credentials:'include'
       });
 
       let result = await res.json();

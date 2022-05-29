@@ -39,7 +39,7 @@ class LoginForm extends React.Component {
         });
 
         try {
-            let res = await fetch('/login', {
+            let res = await fetch('http://localhost:3001/login', {
                 method: 'POST',
                 headers : {
                     'Accept' : 'application/json',
@@ -49,6 +49,7 @@ class LoginForm extends React.Component {
                     email: this.state.email,
                     password: this.state.password
                 }),
+                credentials:'include'
             })
 
             let result = await res.json();

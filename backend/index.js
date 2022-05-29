@@ -11,9 +11,6 @@ require('dotenv').config();
 const cors=require("cors");
 const bodyparser = require("body-parser")
 
-const bookingRouter = require('./routes/bookingRouter');
-const HotelRoom = require('./models/HotelRoom')
-
 //parse JSON using express
 app.use(express.json())
 // app.use(express.urlencoded({extended: false}))
@@ -25,35 +22,44 @@ app.use(fileUpload());
 //     credentials:true,            //access-control-allow-credentials:true
 //     optionSuccessStatus:200,
 //  }
-app.use(cors());
+// app.use(cors({
+//     origin:'http://localhost:3000',
+//     credentials:true
+// }));
+app.use(function (req, res, next) {
 
-var db;
-function handleDisconnect() {
-    db = mysql.createConnection({
-        host: process.env.DATABASE_HOST,
-        user: process.env.DATABASE_USER,
-        password: process.env.DATABASE_PASS,
-        database: process.env.DATABASE_NAME,
-        port: process.env.DATABASE_PORT
-    });
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
-    db.connect((err) => {
-        if(err) {
-            console.log('error when connecting to db: ', err);
-            setTimeout(handleDisconnect, 2000);
-        }
-    });
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    db.on('error', (err)=>{
-        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
-            handleDisconnect();
-        }else {
-            throw err;
-        }
-    });
-}
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-handleDisconnect();
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
+var db = mysql.createConnection({
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASS,
+    database: process.env.DATABASE_NAME,
+    port: process.env.DATABASE_PORT
+});
+
+db.connect((err) => {
+    if(err) {
+        console.log('error when connecting to db: ', err);
+        throw err;
+    }
+});
+
 
 const sessionStore = new MySQLStore({
     expiration : (365 * 60 * 60 * 24 * 1000),
@@ -74,6 +80,10 @@ app.use(session({
 
 new Router(app, db);
 
+const HotelRoom = require('./models/HotelRoom')
+const bookingRouter = require('./routes/bookingRouter');
+
+
 app.use('/book', bookingRouter);
 
 // app.listen(3001, '192.168.1.101');
@@ -83,7 +93,7 @@ app.listen(process.env.PORT || 3001, () => {
 // app.get('/',(req, res)=>{
 //     res.send("SUCCESS");
 // })
-
+app.on('close',()=>db.close());
 
 app.get("/api/get-all-customers", (req, res) => {
     const sql = "SELECT * FROM user WHERE type=2;"
@@ -146,6 +156,10 @@ app.post("/api/create-customer", (req, res) => {
     db.query(sql, [first_name, last_name, email, hash, mobile], (err, result) => {
         if (err) {
             console.log("ERROR WHEN ADDING A CUSTOMER: " + err)
+            res.json({
+                success: false,
+                msg:err
+            })
         } else {
             if (result.affectedRows === 1) {
                 res.json({

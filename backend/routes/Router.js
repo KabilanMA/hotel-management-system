@@ -13,7 +13,6 @@ class Router {
 
     login(app , db) {
         app.post('/login', (req, res) => {
-            res.set('Access-Control-Allow-Origin', '*');
             let email = req.body.email;
             let password = req.body.password;
 
@@ -34,7 +33,7 @@ class Router {
                 if(err) {
                     res.json({
                         success: false,
-                        msg: "An error occured, please try again",
+                        msg: "login error occured, please restart the server and try again",
                     })
                     return;
                 }
@@ -71,7 +70,6 @@ class Router {
     logout(app, db) {
 
         app.post('/logout', (req, res)=>{
-            res.set('Access-Control-Allow-Origin', '*');
             if(req.session.userID) {
 
                 req.session.destroy();
@@ -94,7 +92,6 @@ class Router {
 
         app.post('/isLoggedIn', (req, res)=>{
             // req.session.destroy();
-            res.set('Access-Control-Allow-Origin', '*');
             if(req.session.userID || req.session.userID == 0) {
                 let cols = [req.session.userID];
                 db.query('SELECT * FROM user WHERE user_id = ? LIMIT 1',cols, (err, data, fields) => {
