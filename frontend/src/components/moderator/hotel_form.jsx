@@ -27,7 +27,7 @@ function Hotel_Adding_form()  {
       if (!name || !star_rating || !facilities || !street_number || !street_name){
         toast.error("Please Provide Values for All");}
       else{
-      Axios.post('http://localhost:3001/create',{
+      Axios.post('https://hotel-network-manager1.herokuapp.com/create',{
         name:name,
         star_rating:star_rating,
         facilities:facilities,

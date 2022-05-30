@@ -30,7 +30,7 @@ class App extends React.Component {
 
   async componentDidMount() {
     try {
-      let res = await fetch("http://localhost:3001/isLoggedIn", {
+      let res = await fetch("https://hotel-network-manager1.herokuapp.com/isLoggedIn", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -60,7 +60,7 @@ class App extends React.Component {
 
   async doLogout() {
     try {
-      let res = await fetch("http://localhost:3001/logout", {
+      let res = await fetch("https://hotel-network-manager1.herokuapp.com/logout", {
         method: "POST",
         headers: {
           'Accept': 'application/json',

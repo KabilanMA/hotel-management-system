@@ -22,12 +22,13 @@ const CreateRoom = () => {
         else {
             setIsPending(true)
             const roomData = { hotelID, name, num_of_people, ac_or_non_ac, price }
-            fetch('http://localhost:3001/api/create-room', {
+            fetch('https://hotel-network-manager1.herokuapp.com/api/create-room', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(roomData),
+                
             })
                 .then(response => {
                     if (!response.ok) throw Error("Could not fetch the data")

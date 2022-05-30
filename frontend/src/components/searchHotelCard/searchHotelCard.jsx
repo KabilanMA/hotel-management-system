@@ -9,7 +9,7 @@ class SearchHotelCard extends React.Component {
 
     render() {
 
-        const im = "http://localhost:3001/images/upload_images/"+this.props.hotel.img
+        const im = "https://hotel-network-manager1.herokuapp.com/images/upload_images/"+this.props.hotel.img
         const stars = []
         for (let index = 0; index < this.props.hotel.star_rating; index++) {
             stars.push(index)

@@ -9,7 +9,7 @@ import {ToastContainer,toast} from 'react-toastify'
 function Hotel_View() {
   const [hotelList, setHotelList] = useState([]);
   const getHotel_details = async() => {
-    const responce=await  Axios.get("http://localhost:3001/hotels");
+    const responce=await  Axios.get("https://hotel-network-manager1.herokuapp.com/hotels");
     setHotelList(responce.data);
     
   };
@@ -30,7 +30,7 @@ function Hotel_View() {
   const deleteHotel = (id) => {
     console.log(id);
     if(window.confirm("Are you want to delete this hotel?")){
-      Axios.delete(`http://localhost:3001/remove/${id}`);
+      Axios.delete(`https://hotel-network-manager1.herokuapp.com/remove/${id}`);
       toast.info("Hotel Deleted");
       setTimeout(() =>getHotel_details(),500)
      }

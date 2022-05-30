@@ -21,7 +21,7 @@ class EditOverlay extends React.Component {
     async makeChange() {
         if(this.state.roomID > 0) {
             try{
-                let res = await fetch('/modifyRoom', {
+                let res = await fetch('https://hotel-network-manager1.herokuapp.com//modifyRoom', {
                     method:'POST', 
                     headers: {
                         'Accept': 'application/json',

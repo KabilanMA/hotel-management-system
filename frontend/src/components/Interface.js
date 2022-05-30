@@ -6,17 +6,6 @@ class Interface extends React.Component {
 
     constructor(props) {
         super(props);
-        // if(window.location.href.includes('signup')){
-        //     this.state={
-        //         login:'',
-        //         signup:'active',
-        //     };
-        // }else {
-        //     this.state={
-        //         login:'active',
-        //         signup:'',
-        //     };
-        // }
         this.state = {
             stateVar:props.state,
         }

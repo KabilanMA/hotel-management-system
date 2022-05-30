@@ -39,7 +39,7 @@ class LoginForm extends React.Component {
         });
 
         try {
-            let res = await fetch('http://localhost:3001/login', {
+            let res = await fetch('https://hotel-network-manager1.herokuapp.com/login', {
                 method: 'POST',
                 headers : {
                     'Accept' : 'application/json',
@@ -49,7 +49,8 @@ class LoginForm extends React.Component {
                     email: this.state.email,
                     password: this.state.password
                 }),
-                credentials:'include'
+                credentials:'include',
+                mode:'cors'
             })
 
             let result = await res.json();
