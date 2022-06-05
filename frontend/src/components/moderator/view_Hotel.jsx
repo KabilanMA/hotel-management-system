@@ -46,7 +46,7 @@ function Hotel_View() {
           <div className="card">
             <img
               id="image"
-              src={"http://localhost:3001/images/upload_images/"+val.img}
+              src={"https://hotel-network-manager1.herokuapp.com/images/upload_images/"+val.img}
               className="card-img-top"
               alt="..."
             />

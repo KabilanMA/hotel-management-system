@@ -26,6 +26,9 @@ import Interface from "./components/Interface";
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      userID:'0'
+    }
   }
 
   async componentDidMount() {
@@ -36,6 +39,7 @@ class App extends React.Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
+        
         credentials: 'include',
         mode:'cors'
       });
@@ -66,7 +70,8 @@ class App extends React.Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        credentials:'include'
+        credentials:'include',
+        mode:'cors'
       });
 
       let result = await res.json();

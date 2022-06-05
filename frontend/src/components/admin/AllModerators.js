@@ -7,14 +7,14 @@ import EditOverlay from './EditOverlay';
 
 const AllModerators = () => {
 
-    var {data, isPending, error} = useFetch('http://localhost:3001/api/get-all-moderators')
+    var {data, isPending, error} = useFetch('https://hotel-network-manager1.herokuapp.com/api/get-all-moderators')
 
     let [edit, setEdit] = useState(false);
     let [userid, setId] = useState(0);
 
     const handleDelete = async (id) => {
         if(window.confirm("Are you sure you want to delete this moderator?")){
-            let res = await fetch('/api/delete-user/'+id, {
+            let res = await fetch('https://hotel-network-manager1.herokuapp.com/api/delete-user/'+id, {
                 method: 'DELETE',
                 headers: {
                     "Accept":"application/json",

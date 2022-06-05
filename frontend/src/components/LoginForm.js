@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
             })
 
             let result = await res.json();
-
+            console.log(result);
             if(result && result.success) {
                 UserStore.modifyObservable(false, true, result.first_name, result.email, result.type);
             } else if(result && result.success === false) {

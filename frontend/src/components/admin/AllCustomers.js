@@ -7,7 +7,7 @@ import EditOverlay from './EditOverlay';
 
 const AllCustomers = () => {
 
-    var {data, isPending, error} = useFetch('http://localhost:3001/api/get-all-customers')
+    var {data, isPending, error} = useFetch('https://hotel-network-manager1.herokuapp.com/api/get-all-customers')
 
     let [edit, setEdit] = useState(false);
     let [userid, setId] = useState(0);

@@ -35,7 +35,7 @@ const CreateCustomer = () => {
             setisPending(true)
             const customerData = { first_name: firstName, last_name: lastName, email, password, mobile }
 
-            fetch('http://localhost:3001/api/create-customer', {
+            fetch('https://hotel-network-manager1.herokuapp.com/api/create-customer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
